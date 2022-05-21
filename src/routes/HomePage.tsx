@@ -100,32 +100,23 @@ function HomePage() {
     <Container className={classes.wrapper} size={1400}>
       <div className={classes.inner}>
         <Title className={classes.title}>
-          Automated AI{" "}
+          Buy Credo enabled products with{" "}
           <Text component="span" color={theme.primaryColor} inherit>
-            code reviews
+            Cryptocurrency
           </Text>{" "}
-          for any stack
+          with ease
         </Title>
 
         <Container p={0} size={600}>
           <Text size="lg" color="dimmed" className={classes.description}>
-            Build more reliable software with AI companion. AI is also trained
-            to detect lazy developers who do nothing and just complain on
-            Twitter.
+            Adds new payment gateway to your credo product payment link. allows
+            customers to pay with crypto.
           </Text>
         </Container>
 
         <div className={classes.controls}>
-          <Button
-            className={classes.control}
-            size="lg"
-            variant="default"
-            color="gray"
-          >
-            Book a demo
-          </Button>
           <Button className={classes.control} size="lg">
-            Purchase a license
+            Connect Wallet
           </Button>
         </div>
       </div>
