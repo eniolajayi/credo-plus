@@ -8,8 +8,11 @@ import {
   useMantineTheme,
   Card,
   Group,
+  Anchor,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { CONTRACT_ADDRESS } from "../contracts/constants";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -170,7 +173,11 @@ function HomePage() {
         </Title>
         <Title className={classes.subtitle} order={2}>
           Sell Credo enabled products with{" "}
-          <Text component="span" color={theme.primaryColor} inherit>
+          <Text
+            component="span"
+            color={currentAccount ? theme.colors.orange[6] : theme.primaryColor}
+            inherit
+          >
             Cryptocurrency features
           </Text>{" "}
           easily
@@ -189,10 +196,21 @@ function HomePage() {
         </div>
         <Group position={"center"}>
           {currentAccount ? (
-            <Card withBorder p="xl" style={{ width: "min(340px,100%)" }}>
-              <Text align={"center"} weight={500} size={"md"}>
-                Your wallet is connected! 🎉 click get products button to begin
-                the process of fetching your products from Credo
+            <Card
+              withBorder
+              p="xl"
+              mt="lg"
+              style={{ width: "min(500px,100%)" }}
+            >
+              <Text align={"center"} weight={500} size={"md"} color={"dimmed"}>
+                Your wallet is connected! 🎉 click the get products button to
+                get started. Your wallet address: {currentAccount}
+                <Text inherit size={"sm"} mt={"xl"}>
+                  Don't have a Credo account?{" "}
+                  <Anchor href="https://credocentral.com/" target="_blank">
+                    Create an account
+                  </Anchor>
+                </Text>
               </Text>
             </Card>
           ) : (
@@ -200,6 +218,18 @@ function HomePage() {
           )}
         </Group>
       </div>
+
+      <Group direction={"column"} p={"xl"} mt={"xl"}>
+        <Title order={4} className={classes.subtitle}>
+          Smart Contract Address
+        </Title>
+        <Anchor
+          href="https://rinkeby.etherscan.io/address/0xb8befc5078f7b6f979483ee38160ff48b45c42e4#code"
+          target="_blank"
+        >
+          {CONTRACT_ADDRESS}
+        </Anchor>
+      </Group>
     </Container>
   );
 }
