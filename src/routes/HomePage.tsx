@@ -200,11 +200,11 @@ function HomePage() {
               withBorder
               p="xl"
               mt="lg"
-              style={{ width: "min(340px,100%)" }}
+              style={{ width: "min(500px,100%)" }}
             >
               <Text align={"center"} weight={500} size={"md"} color={"dimmed"}>
                 Your wallet is connected! 🎉 click the get products button to
-                get started.
+                get started. Your wallet address: {currentAccount}
                 <Text inherit size={"sm"} mt={"xl"}>
                   Don't have a Credo account?{" "}
                   <Anchor href="https://credocentral.com/" target="_blank">
@@ -219,7 +219,7 @@ function HomePage() {
         </Group>
       </div>
 
-      <Group direction={"column"} p={"xl"}>
+      <Group direction={"column"} p={"xl"} mt={"xl"}>
         <Title order={4} className={classes.subtitle}>
           Smart Contract Address
         </Title>
