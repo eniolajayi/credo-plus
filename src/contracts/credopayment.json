@@ -139,7 +139,7 @@
       { "internalType": "uint256", "name": "amount", "type": "uint256" },
       { "internalType": "string", "name": "paymentToken", "type": "string" }
     ],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -167,7 +167,7 @@
       { "internalType": "uint256", "name": "amount", "type": "uint256" },
       { "internalType": "string", "name": "paymentToken", "type": "string" }
     ],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -178,6 +178,19 @@
       { "internalType": "string", "name": "", "type": "string" }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_paymentTokenType",
+        "type": "string"
+      }
+    ],
+    "name": "ownerWithdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
