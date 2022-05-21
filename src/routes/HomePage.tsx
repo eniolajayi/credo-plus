@@ -148,15 +148,15 @@ function HomePage() {
     );
   };
 
-  const getProductsButton = () => {
+  const getStartedButton = () => {
     return (
       <Button
         className={classes.control}
         onClick={connectWalletHandler}
         size="lg"
-        color={"orange"}
+        color={"indigo"}
       >
-        Get Products
+        Get Started
       </Button>
     );
   };
@@ -175,7 +175,7 @@ function HomePage() {
           Sell Credo enabled products with{" "}
           <Text
             component="span"
-            color={currentAccount ? theme.colors.orange[6] : theme.primaryColor}
+            color={currentAccount ? theme.colors.indigo[6] : theme.primaryColor}
             inherit
           >
             Cryptocurrency features
@@ -192,7 +192,7 @@ function HomePage() {
         </Container>
 
         <div className={classes.controls}>
-          {currentAccount ? getProductsButton() : connectWalletButton()}
+          {currentAccount ? getStartedButton() : connectWalletButton()}
         </div>
         <Group position={"center"}>
           {currentAccount ? (
@@ -203,8 +203,9 @@ function HomePage() {
               style={{ width: "min(500px,100%)" }}
             >
               <Text align={"center"} weight={500} size={"md"} color={"dimmed"}>
-                Your wallet is connected! 🎉 click the get products button to
-                get started. Your wallet address: {currentAccount}
+                <Text>🎉 Connected Successfully!🎉 </Text>
+                click Get Started to add your Credo products
+                <Text inherit> Your wallet address: {currentAccount}</Text>
                 <Text inherit size={"sm"} mt={"xl"}>
                   Don't have a Credo account?{" "}
                   <Anchor href="https://credocentral.com/" target="_blank">
