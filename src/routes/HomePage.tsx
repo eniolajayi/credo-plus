@@ -8,8 +8,10 @@ import {
   useMantineTheme,
   Card,
   Group,
+  Anchor,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -190,9 +192,15 @@ function HomePage() {
         <Group position={"center"}>
           {currentAccount ? (
             <Card withBorder p="xl" style={{ width: "min(340px,100%)" }}>
-              <Text align={"center"} weight={500} size={"md"}>
-                Your wallet is connected! 🎉 click get products button to begin
-                the process of fetching your products from Credo
+              <Text align={"center"} weight={500} size={"md"} color={"dimmed"}>
+                Your wallet is connected! 🎉 click the get products button to
+                get started.
+                <Text inherit size={"sm"} mt={"xl"}>
+                  Don't have a Credo account?{" "}
+                  <Anchor href="https://credocentral.com/" target="_blank">
+                    Create an account
+                  </Anchor>
+                </Text>
               </Text>
             </Card>
           ) : (
