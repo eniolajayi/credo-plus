@@ -1,3 +1,4 @@
+//@ts-ignore
 import {
   createStyles,
   Title,
@@ -5,7 +6,10 @@ import {
   Button,
   Container,
   useMantineTheme,
+  Card,
+  Group,
 } from "@mantine/core";
+import { useEffect, useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -24,32 +28,27 @@ const useStyles = createStyles((theme) => ({
     zIndex: 1,
   },
 
-  dots: {
-    position: "absolute",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[5]
-        : theme.colors.gray[1],
-
-    "@media (max-width: 755px)": {
-      display: "none",
-    },
-  },
-
-  dotsLeft: {
-    left: 0,
-    top: 0,
-  },
-
   title: {
     textAlign: "center",
-    fontWeight: 800,
-    fontSize: 40,
+    fontWeight: 600,
     letterSpacing: -1,
+    fontSize: 40,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
     marginBottom: theme.spacing.xs,
     fontFamily: `${theme.fontFamily}`,
 
+    "@media (max-width: 520px)": {
+      fontSize: 28,
+      textAlign: "left",
+    },
+  },
+  subtitle: {
+    textAlign: "center",
+    fontWeight: 500,
+    letterSpacing: -1,
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    marginBottom: theme.spacing.xs,
+    fontFamily: `${theme.fontFamily}`,
     "@media (max-width: 520px)": {
       fontSize: 28,
       textAlign: "left",
@@ -95,39 +94,111 @@ const useStyles = createStyles((theme) => ({
 function HomePage() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
+  const [currentAccount, setCurrentAccount] = useState(null);
+
+  const checkWalletIsConnected = async () => {
+    const { ethereum } = window;
+    if (!ethereum) {
+      console.log("make sure you have Metamask installed");
+      return;
+    } else {
+      console.log("wallet exist and we are ready to go");
+    }
+
+    const accounts = await ethereum.request({ method: "eth_accounts" });
+
+    if (accounts.length !== 0) {
+      const account = accounts[0];
+      console.log("Found an authoried account: ", account);
+      setCurrentAccount(account);
+    } else {
+      console.log("No authorized account found");
+    }
+  };
+
+  const connectWalletHandler = async () => {
+    const { ethereum } = window;
+    if (!ethereum) {
+      alert("Please install Metamask");
+    }
+
+    try {
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log("Found an account! Address", accounts[0]);
+      setCurrentAccount(accounts[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const connectWalletButton = () => {
+    return (
+      <Button
+        className={classes.control}
+        onClick={connectWalletHandler}
+        size="lg"
+      >
+        Connect Wallet
+      </Button>
+    );
+  };
+
+  const getProductsButton = () => {
+    return (
+      <Button
+        className={classes.control}
+        onClick={connectWalletHandler}
+        size="lg"
+        color={"orange"}
+      >
+        Get Products
+      </Button>
+    );
+  };
+
+  useEffect(() => {
+    checkWalletIsConnected();
+  }, []);
 
   return (
     <Container className={classes.wrapper} size={1400}>
       <div className={classes.inner}>
-        <Title className={classes.title}>
-          Automated AI{" "}
+        <Title className={classes.title} order={1}>
+          Credo +
+        </Title>
+        <Title className={classes.subtitle} order={2}>
+          Buy Credo enabled products with{" "}
           <Text component="span" color={theme.primaryColor} inherit>
-            code reviews
+            Cryptocurrency
           </Text>{" "}
-          for any stack
+          easily
         </Title>
 
         <Container p={0} size={600}>
           <Text size="lg" color="dimmed" className={classes.description}>
-            Build more reliable software with AI companion. AI is also trained
-            to detect lazy developers who do nothing and just complain on
-            Twitter.
+            Adds new payment gateway to your credo product payment link. allows
+            customers to pay with crypto. We get your products from Credo, you
+            connect your wallet and earn!
           </Text>
         </Container>
 
         <div className={classes.controls}>
-          <Button
-            className={classes.control}
-            size="lg"
-            variant="default"
-            color="gray"
-          >
-            Book a demo
-          </Button>
-          <Button className={classes.control} size="lg">
-            Purchase a license
-          </Button>
+          {currentAccount ? getProductsButton() : connectWalletButton()}
         </div>
+        <Group position={"center"}>
+          {currentAccount ? (
+            <Card withBorder p="xl" style={{ width: "min(340px,100%)" }}>
+              <Text align={"center"} weight={500} size={"md"}>
+                Your wallet is connected! 🎉 click get products button to begin
+                the process of fetching your products from Credo
+              </Text>
+            </Card>
+          ) : (
+            ""
+          )}
+        </Group>
       </div>
     </Container>
   );

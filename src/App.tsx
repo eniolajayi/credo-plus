@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { MantineProvider } from "@mantine/core";
 import HomePage from "./routes/HomePage";
+import { ModalsProvider } from "@mantine/modals";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       withGlobalStyles
       withNormalizeCSS
     >
-      <HomePage />
+      <ModalsProvider>
+        <HomePage />
+      </ModalsProvider>
     </MantineProvider>
   );
 }
