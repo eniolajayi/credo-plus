@@ -1,3 +1,4 @@
+//@ts-ignore
 import {
   createStyles,
   Title,
@@ -6,6 +7,7 @@ import {
   Container,
   useMantineTheme,
 } from "@mantine/core";
+import { useEffect } from "react";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -24,32 +26,27 @@ const useStyles = createStyles((theme) => ({
     zIndex: 1,
   },
 
-  dots: {
-    position: "absolute",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[5]
-        : theme.colors.gray[1],
-
-    "@media (max-width: 755px)": {
-      display: "none",
-    },
-  },
-
-  dotsLeft: {
-    left: 0,
-    top: 0,
-  },
-
   title: {
     textAlign: "center",
-    fontWeight: 800,
-    fontSize: 40,
+    fontWeight: 600,
     letterSpacing: -1,
+    fontSize: 40,
     color: theme.colorScheme === "dark" ? theme.white : theme.black,
     marginBottom: theme.spacing.xs,
     fontFamily: `${theme.fontFamily}`,
 
+    "@media (max-width: 520px)": {
+      fontSize: 28,
+      textAlign: "left",
+    },
+  },
+  subtitle: {
+    textAlign: "center",
+    fontWeight: 500,
+    letterSpacing: -1,
+    color: theme.colorScheme === "dark" ? theme.white : theme.black,
+    marginBottom: theme.spacing.xs,
+    fontFamily: `${theme.fontFamily}`,
     "@media (max-width: 520px)": {
       fontSize: 28,
       textAlign: "left",
@@ -96,29 +93,53 @@ function HomePage() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
 
+  const checkWalletIsConnected = () => {
+    //   const {ethereum} = window;
+    //   if(!ethereum){
+    //   }
+  };
+
+  const connectWalletHandler = () => {};
+
+  const connectWalletButton = () => {
+    return (
+      <Button
+        className={classes.control}
+        onClick={connectWalletHandler}
+        size="lg"
+      >
+        Connect Wallet
+      </Button>
+    );
+  };
+
+  useEffect(() => {
+    checkWalletIsConnected();
+  }, []);
+
   return (
     <Container className={classes.wrapper} size={1400}>
       <div className={classes.inner}>
-        <Title className={classes.title}>
+        <Title className={classes.title} order={1}>
+          Credo +
+        </Title>
+        <Title className={classes.subtitle} order={2}>
           Buy Credo enabled products with{" "}
           <Text component="span" color={theme.primaryColor} inherit>
             Cryptocurrency
           </Text>{" "}
-          with ease
+          easily
         </Title>
 
         <Container p={0} size={600}>
           <Text size="lg" color="dimmed" className={classes.description}>
             Adds new payment gateway to your credo product payment link. allows
-            customers to pay with crypto.
+            customers to pay with crypto. We get your products from Credo, you
+            connect your wallet and earn!
           </Text>
         </Container>
 
-        <div className={classes.controls}>
-          <Button className={classes.control} size="lg">
-            Connect Wallet
-          </Button>
-        </div>
+        <div className={classes.controls}>{connectWalletButton()}</div>
       </div>
     </Container>
   );
