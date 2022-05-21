@@ -169,18 +169,18 @@ function HomePage() {
           Credo +
         </Title>
         <Title className={classes.subtitle} order={2}>
-          Buy Credo enabled products with{" "}
+          Sell Credo enabled products with{" "}
           <Text component="span" color={theme.primaryColor} inherit>
-            Cryptocurrency
+            Cryptocurrency features
           </Text>{" "}
           easily
         </Title>
 
         <Container p={0} size={600}>
           <Text size="lg" color="dimmed" className={classes.description}>
-            Adds new payment gateway to your credo product payment link. allows
-            customers to pay with crypto. We get your products from Credo, you
-            connect your wallet and earn!
+            Add new payment gateway to your credo product payment link and allow
+            your customers to pay with crypto. We get your products from Credo,
+            you connect your wallet and earn!
           </Text>
         </Container>
 
