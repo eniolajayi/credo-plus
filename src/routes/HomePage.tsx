@@ -6,8 +6,10 @@ import {
   Button,
   Container,
   useMantineTheme,
+  Card,
+  Group,
 } from "@mantine/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -92,14 +94,44 @@ const useStyles = createStyles((theme) => ({
 function HomePage() {
   const { classes } = useStyles();
   const theme = useMantineTheme();
+  const [currentAccount, setCurrentAccount] = useState(null);
 
-  const checkWalletIsConnected = () => {
-    //   const {ethereum} = window;
-    //   if(!ethereum){
-    //   }
+  const checkWalletIsConnected = async () => {
+    const { ethereum } = window;
+    if (!ethereum) {
+      console.log("make sure you have Metamask installed");
+      return;
+    } else {
+      console.log("wallet exist and we are ready to go");
+    }
+
+    const accounts = await ethereum.request({ method: "eth_accounts" });
+
+    if (accounts.length !== 0) {
+      const account = accounts[0];
+      console.log("Found an authoried account: ", account);
+      setCurrentAccount(account);
+    } else {
+      console.log("No authorized account found");
+    }
   };
 
-  const connectWalletHandler = () => {};
+  const connectWalletHandler = async () => {
+    const { ethereum } = window;
+    if (!ethereum) {
+      alert("Please install Metamask");
+    }
+
+    try {
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      console.log("Found an account! Address", accounts[0]);
+      setCurrentAccount(accounts[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const connectWalletButton = () => {
     return (
@@ -109,6 +141,19 @@ function HomePage() {
         size="lg"
       >
         Connect Wallet
+      </Button>
+    );
+  };
+
+  const getProductsButton = () => {
+    return (
+      <Button
+        className={classes.control}
+        onClick={connectWalletHandler}
+        size="lg"
+        color={"orange"}
+      >
+        Get Products
       </Button>
     );
   };
@@ -139,7 +184,21 @@ function HomePage() {
           </Text>
         </Container>
 
-        <div className={classes.controls}>{connectWalletButton()}</div>
+        <div className={classes.controls}>
+          {currentAccount ? getProductsButton() : connectWalletButton()}
+        </div>
+        <Group position={"center"}>
+          {currentAccount ? (
+            <Card withBorder p="xl" style={{ width: "min(340px,100%)" }}>
+              <Text align={"center"} weight={500} size={"md"}>
+                Your wallet is connected! 🎉 click get products button to begin
+                the process of fetching your products from Credo
+              </Text>
+            </Card>
+          ) : (
+            ""
+          )}
+        </Group>
       </div>
     </Container>
   );
