@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { CONTRACT_ADDRESS } from "../contracts/constants";
+import { CONTRACT_ADDRESS, ETHERSCAN_LINK } from "../contracts/constants";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
@@ -224,10 +224,7 @@ function HomePage() {
         <Title order={4} className={classes.subtitle}>
           Smart Contract Address
         </Title>
-        <Anchor
-          href="https://rinkeby.etherscan.io/address/0xb8befc5078f7b6f979483ee38160ff48b45c42e4#code"
-          target="_blank"
-        >
+        <Anchor href={ETHERSCAN_LINK} target="_blank">
           {CONTRACT_ADDRESS}
         </Anchor>
       </Group>
